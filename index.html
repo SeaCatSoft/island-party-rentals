@@ -13,8 +13,12 @@
   .demo-banner { background: var(--accent-soft); color: var(--accent-dark); text-align: center;
     padding: 8px 14px; font-weight: 500; font-size: 0.88rem; border-bottom: 1px solid var(--line); }
 
-  .hero { padding: 84px 0 64px; border-bottom: 1px solid var(--line); background: var(--surface); }
-  .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; }
+  /* Hero */
+  .hero { padding: 84px 0 56px; background: var(--surface); position: relative; overflow: hidden; }
+  .hero::before, .hero::after { content: ""; position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.35; pointer-events: none; }
+  .hero::before { width: 420px; height: 420px; background: var(--accent-soft); top: -140px; right: -100px; }
+  .hero::after { width: 360px; height: 360px; background: #fdeedd; bottom: -160px; left: -120px; }
+  .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; position: relative; z-index: 1; }
   .eyebrow { display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--accent-dark); background: var(--accent-soft);
     padding: 5px 12px; border-radius: 999px; margin-bottom: 18px; }
@@ -22,11 +26,36 @@
   .hero h1 em { font-style: normal; color: var(--accent); }
   .hero p.lede { margin-top: 18px; font-size: 1.08rem; color: var(--ink-soft); max-width: 48ch; }
 
-  .date-panel { padding: 28px; }
+  .date-panel { padding: 28px; background: var(--surface); }
   .date-panel h2 { font-size: 1.1rem; margin-bottom: 4px; }
   .date-panel .stack { margin-top: 16px; }
   #availability-note { min-height: 1.2em; color: var(--accent-dark); font-weight: 500; }
 
+  /* Sliding party photos */
+  .marquee-section { padding: 26px 0 8px; background: var(--surface); border-bottom: 1px solid var(--line); }
+  .marquee { overflow: hidden; position: relative;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+  .marquee-track { display: flex; gap: 16px; width: max-content; padding: 10px 0 26px;
+    animation: slide 45s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .m-item { width: 250px; height: 180px; flex: none; border-radius: 14px; overflow: hidden;
+    background: var(--accent-soft); border: 1px solid var(--line); }
+  .m-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+  .m-item:hover img { transform: scale(1.05); }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee { mask-image: none; -webkit-mask-image: none; overflow-x: auto; }
+    .marquee-track { animation: none; }
+  }
+
+  /* Trust stats */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 44px; }
+  .stat { padding: 20px 22px; }
+  .stat strong { display: block; font-family: var(--font-display); font-size: 1.5rem; color: var(--accent-dark); }
+  .stat span { font-size: 0.88rem; color: var(--ink-soft); }
+
+  /* Catalog */
   .cat-bar { display: flex; gap: 8px; flex-wrap: wrap; margin: 24px 0 26px; }
   .cat-chip { border: 1px solid var(--line); background: var(--surface); color: var(--ink);
     border-radius: 999px; padding: 7px 16px; font-weight: 500; font-size: 0.88rem;
@@ -34,13 +63,15 @@
   .cat-chip:hover { border-color: var(--ink); }
   .cat-chip.active { background: var(--ink); border-color: var(--ink); color: #fff; }
 
-  .catalog { padding: 56px 0 80px; }
-  .catalog h2 { font-size: 1.7rem; }
+  .catalog { padding: 56px 0 64px; }
+  .section-head { display: flex; align-items: baseline; gap: 14px; }
+  .section-head h2 { font-size: 1.7rem; }
   #product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 20px; }
 
   .product-card { overflow: hidden; display: flex; flex-direction: column;
-    transition: border-color 0.15s ease, transform 0.15s ease; }
-  .product-card:hover { border-color: #cfccc5; transform: translateY(-2px); }
+    transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease; }
+  .product-card:hover { border-color: #cfccc5; transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(16,20,24,0.07); }
   .product-img { aspect-ratio: 4 / 2.6; background: var(--accent-soft); display: grid; place-items: center; }
   .product-img img { width: 100%; height: 100%; object-fit: cover; }
   .product-initial { font-family: var(--font-display); font-size: 3rem; font-weight: 700;
@@ -52,6 +83,27 @@
   .product-actions { margin-top: 6px; }
   .qty-ctrl { display: inline-flex; align-items: center; gap: 12px; }
 
+  /* How it works */
+  .how { padding: 60px 0; background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .how h2 { font-size: 1.7rem; margin-bottom: 26px; }
+  .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .how-step { padding: 24px; position: relative; }
+  .how-num { width: 34px; height: 34px; border-radius: 10px; background: var(--accent); color: #fff;
+    display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; margin-bottom: 14px; }
+  .how-step h3 { font-size: 1.02rem; margin-bottom: 6px; }
+  .how-step p { font-size: 0.9rem; color: var(--ink-soft); }
+
+  /* CTA band */
+  .cta { padding: 64px 0; text-align: center; }
+  .cta h2 { font-size: clamp(1.6rem, 3.4vw, 2.2rem); margin-bottom: 10px; }
+  .cta p { color: var(--ink-soft); margin-bottom: 22px; }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+
+  /* Cart / checkout */
   .cart-row { display: grid; grid-template-columns: 1fr auto auto; align-items: center;
     gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
   .cart-totals { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.95rem; }
@@ -79,8 +131,10 @@
   .site-footer h3 { color: var(--ink); margin-bottom: 10px; font-size: 0.95rem; }
 
   @media (max-width: 820px) {
-    .hero { padding: 48px 0 44px; }
+    .hero { padding: 48px 0 40px; }
     .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+    .stats, .how-grid { grid-template-columns: 1fr; }
+    .m-item { width: 200px; height: 145px; }
   }
 </style>
 </head>
@@ -128,11 +182,71 @@
   </div>
 </section>
 
+<!-- Sliding party photos.
+     To use your own event photos: upload them to an /images folder in
+     your GitHub repo and replace the src URLs below (keep 6-10 photos). -->
+<section class="marquee-section" aria-label="Photos from parties">
+  <div class="marquee">
+    <div class="marquee-track" id="marquee-track">
+      <div class="m-item"><img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=75&auto=format&fit=crop" alt="Friends celebrating with confetti" loading="lazy" onerror="this.parentElement.remove()"></div>
+      <div class="m-item"><img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=75&auto=format&fit=crop" alt="Friends at a birthday party with balloons" loading="lazy" onerror="this.parentElement.remove()"></div>
+      <div class="m-item"><img src="https://images.unsplash.com/photo-1496337589254-7e19d01cec44?w=600&q=75&auto=format&fit=crop" alt="Sparklers at a night celebration" loading="lazy" onerror="this.parentElement.remove()"></div>
+      <div class="m-item"><img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&q=75&auto=format&fit=crop" alt="Outdoor tent dinner celebration" loading="lazy" onerror="this.parentElement.remove()"></div>
+      <div class="m-item"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=75&auto=format&fit=crop" alt="Guests toasting at an event table" loading="lazy" onerror="this.parentElement.remove()"></div>
+      <div class="m-item"><img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&q=75&auto=format&fit=crop" alt="Crowd enjoying music at a party" loading="lazy" onerror="this.parentElement.remove()"></div>
+      <div class="m-item"><img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=75&auto=format&fit=crop" alt="Confetti falling over a dancing crowd" loading="lazy" onerror="this.parentElement.remove()"></div>
+      <div class="m-item"><img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&q=75&auto=format&fit=crop" alt="Hands in the air at a celebration" loading="lazy" onerror="this.parentElement.remove()"></div>
+    </div>
+  </div>
+</section>
+
 <main class="catalog wrap">
-  <h2>What we rent</h2>
+  <div class="section-head">
+    <h2>What we rent</h2>
+    <span class="muted">Prices per day</span>
+  </div>
   <div class="cat-bar" id="category-bar"></div>
   <div id="product-grid"></div>
+
+  <div class="stats">
+    <div class="card stat reveal"><strong>500+</strong><span>events supplied across Barbados</span></div>
+    <div class="card stat reveal"><strong>Setup included</strong><span>we deliver, set up, and collect</span></div>
+    <div class="card stat reveal"><strong>50% deposit</strong><span>locks in your date — balance on delivery</span></div>
+  </div>
 </main>
+
+<section class="how">
+  <div class="wrap">
+    <h2>How it works</h2>
+    <div class="how-grid">
+      <div class="card how-step reveal">
+        <div class="how-num">1</div>
+        <h3>Pick your date</h3>
+        <p>Choose your event date and delivery window to see exactly what's available that day — inventory is live.</p>
+      </div>
+      <div class="card how-step reveal">
+        <div class="how-num">2</div>
+        <h3>Book with a 50% deposit</h3>
+        <p>Add your items, check out, and pay the deposit by bank transfer, CIBC 1st Pay, or BimPay using your order reference.</p>
+      </div>
+      <div class="card how-step reveal">
+        <div class="how-num">3</div>
+        <h3>We deliver and set up</h3>
+        <p>Our team arrives in your chosen window, sets everything up, and collects it after. Balance is due on delivery.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>Planning something?</h2>
+    <p>Check your date now — popular items book out fast on weekends.</p>
+    <button class="btn btn-primary" onclick="document.getElementById('rental-date').scrollIntoView({behavior:'smooth', block:'center'}); setTimeout(()=>document.getElementById('rental-date').focus(), 500)">
+      Check my date
+    </button>
+  </div>
+</section>
 
 <footer class="site-footer">
   <div class="wrap row">
@@ -224,5 +338,26 @@
 <script src="js/config.js"></script>
 <script src="js/db.js"></script>
 <script src="js/store.js"></script>
+<script>
+  // Duplicate the photo track so the slide loops seamlessly
+  (function () {
+    var track = document.getElementById("marquee-track");
+    if (track) track.innerHTML += track.innerHTML;
+  })();
+
+  // Gentle scroll-reveal for cards
+  (function () {
+    if (!("IntersectionObserver" in window)) {
+      document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+  })();
+</script>
 </body>
 </html>
