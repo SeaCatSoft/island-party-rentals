@@ -1,0 +1,160 @@
+/* ============================================================
+   Island Party Rentals — design system
+   Palette: deep Caribbean sea, lagoon action colour, hibiscus
+   accent, mango highlight, warm sand ground.
+   Type: Bricolage Grotesque (display) / Karla (body)
+   Signature: pennant bunting dividers.
+   ============================================================ */
+
+:root {
+  --sea: #0c3b49;
+  --sea-deep: #082a35;
+  --lagoon: #0fa3b1;
+  --lagoon-dark: #0b7f8a;
+  --hibiscus: #f2545b;
+  --mango: #ffb627;
+  --sand: #faf5ec;
+  --shell: #ffffff;
+  --ink: #14262c;
+  --ink-soft: #4b5f66;
+  --line: #e4dccd;
+  --ok: #1f9d55;
+  --radius: 14px;
+  --shadow: 0 10px 30px rgba(12, 59, 73, 0.12);
+  --font-display: "Bricolage Grotesque", "Arial Black", sans-serif;
+  --font-body: "Karla", "Helvetica Neue", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--sand);
+  color: var(--ink);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+button { font-family: inherit; cursor: pointer; }
+input, select, textarea { font-family: inherit; font-size: 1rem; }
+
+a { color: var(--lagoon-dark); }
+
+.wrap { width: min(1120px, 92vw); margin: 0 auto; }
+
+h1, h2, h3, .display { font-family: var(--font-display); line-height: 1.12; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: 0; border-radius: 999px; padding: 12px 22px;
+  font-weight: 700; font-size: 1rem; letter-spacing: 0.01em;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+.btn:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--mango); outline-offset: 2px;
+}
+.btn-primary { background: var(--lagoon); color: #fff; }
+.btn-primary:hover { background: var(--lagoon-dark); transform: translateY(-1px); }
+.btn-accent { background: var(--hibiscus); color: #fff; }
+.btn-accent:hover { filter: brightness(0.94); transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--sea); border: 2px solid var(--sea); }
+.btn-ghost:hover { background: var(--sea); color: #fff; }
+.btn-small { padding: 7px 14px; font-size: 0.9rem; }
+.btn[disabled] { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+/* ---------- Forms ---------- */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-weight: 700; font-size: 0.86rem; color: var(--sea); letter-spacing: 0.02em; }
+.field input, .field select, .field textarea {
+  border: 2px solid var(--line); border-radius: 10px; padding: 11px 12px;
+  background: #fff; color: var(--ink);
+}
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--lagoon); outline: none; }
+.hint { font-size: 0.82rem; color: var(--ink-soft); }
+
+/* ---------- Bunting (signature) ---------- */
+.bunting { display: block; width: 100%; height: 34px; }
+
+/* ---------- Header ---------- */
+.site-header { background: var(--sea); color: #fff; position: sticky; top: 0; z-index: 40; }
+.site-header .bar { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+.logo { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; }
+.logo-mark {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: conic-gradient(var(--mango) 0 25%, var(--hibiscus) 0 50%, var(--lagoon) 0 75%, #fff 0 100%);
+  border: 3px solid #fff;
+}
+.logo-name { font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; line-height: 1.05; }
+.logo-name small { display: block; font-family: var(--font-body); font-weight: 400; font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--mango); }
+
+.cart-btn { position: relative; background: var(--hibiscus); color: #fff; border: 0; border-radius: 999px; padding: 10px 18px; font-weight: 700; }
+.cart-count {
+  position: absolute; top: -8px; right: -8px; background: var(--mango); color: var(--sea-deep);
+  min-width: 24px; height: 24px; border-radius: 999px; display: grid; place-items: center;
+  font-size: 0.8rem; font-weight: 800; border: 2px solid var(--sea);
+}
+
+/* ---------- Cards / badges ---------- */
+.card { background: var(--shell); border-radius: var(--radius); box-shadow: var(--shadow); }
+.badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.03em; }
+.badge-ok { background: #e3f6ec; color: var(--ok); }
+.badge-low { background: #fff3d6; color: #9a6b00; }
+.badge-out { background: #fde5e6; color: var(--hibiscus); }
+.badge-status-pending-deposit { background: #fff3d6; color: #9a6b00; }
+.badge-status-deposit-paid { background: #e0f4f6; color: var(--lagoon-dark); }
+.badge-status-completed { background: #e3f6ec; color: var(--ok); }
+.badge-status-cancelled { background: #eee; color: #666; }
+
+/* ---------- Modal / drawer ---------- */
+.overlay {
+  position: fixed; inset: 0; background: rgba(8, 42, 53, 0.55); z-index: 60;
+  display: none; align-items: center; justify-content: center; padding: 20px;
+}
+.overlay.open { display: flex; }
+.modal { background: #fff; border-radius: var(--radius); width: min(640px, 100%); max-height: 90vh; overflow: auto; }
+.modal-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 2px solid var(--line); position: sticky; top: 0; background: #fff; z-index: 2; }
+.modal-body { padding: 22px; }
+.close-x { background: none; border: 0; font-size: 1.5rem; line-height: 1; color: var(--ink-soft); }
+
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; width: min(420px, 100vw); background: #fff;
+  z-index: 70; box-shadow: -12px 0 40px rgba(8,42,53,0.25); transform: translateX(105%);
+  transition: transform 0.22s ease; display: flex; flex-direction: column;
+}
+.drawer.open { transform: translateX(0); }
+.drawer-head { padding: 18px 20px; border-bottom: 2px solid var(--line); display: flex; justify-content: space-between; align-items: center; background: var(--sea); color: #fff; }
+.drawer-body { flex: 1; overflow: auto; padding: 16px 20px; }
+.drawer-foot { padding: 16px 20px; border-top: 2px solid var(--line); background: var(--sand); }
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(120%);
+  background: var(--sea); color: #fff; padding: 12px 22px; border-radius: 999px;
+  font-weight: 700; z-index: 90; transition: transform 0.25s ease; box-shadow: var(--shadow);
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ---------- Tables (admin) ---------- */
+.table { width: 100%; border-collapse: collapse; font-size: 0.94rem; }
+.table th { text-align: left; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); padding: 10px 12px; border-bottom: 2px solid var(--line); }
+.table td { padding: 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.mono { font-family: var(--font-mono); font-size: 0.88em; }
+
+/* ---------- Utility ---------- */
+.muted { color: var(--ink-soft); }
+.right { text-align: right; }
+.price { font-family: var(--font-display); font-weight: 800; }
+.stack { display: flex; flex-direction: column; gap: 14px; }
+.row { display: flex; gap: 14px; flex-wrap: wrap; }
+.row > * { flex: 1; min-width: 140px; }
+.spacer { flex: 1; }
+.hidden { display: none !important; }
