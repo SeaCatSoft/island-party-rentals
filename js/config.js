@@ -21,8 +21,8 @@ const FIREBASE_CONFIG = {
 const BUSINESS = {
   name: "Island Party Rentals",
   tagline: "Tents, tables, bouncers & more — delivered across Barbados",
-  phone: "(246) 555-0123",           // <-- your phone
-  whatsapp: "12465550123",           // <-- digits only, for wa.me link
+  phone: "(246) 832-0540",           // <-- your phone
+  whatsapp: "12468320540",           // <-- digits only, for wa.me link
   email: "bookings@islandpartyrentals.bb",  // <-- your email
   adminNotifyEmail: "admin@islandpartyrentals.bb", // <-- where order alerts go
   currency: "BBD",
